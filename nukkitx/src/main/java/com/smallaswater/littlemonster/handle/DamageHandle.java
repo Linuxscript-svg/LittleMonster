@@ -50,7 +50,7 @@ public class DamageHandle {
             if (!keyPlayers.contains(name)) {
                 keyPlayers.add(name);
                 if (player != null) {
-                    player.showFormWindow(simple, 103);
+                    player.showFormWindow(simple);
                 }
             }
         }

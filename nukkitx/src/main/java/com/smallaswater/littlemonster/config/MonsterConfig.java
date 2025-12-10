@@ -10,6 +10,7 @@ import cn.nukkit.level.Position;
 import cn.nukkit.nbt.tag.CompoundTag;
 import cn.nukkit.potion.Effect;
 import cn.nukkit.utils.Config;
+import cn.nukkit.utils.SerializedImage;
 import com.smallaswater.littlemonster.LittleMonsterMainClass;
 import com.smallaswater.littlemonster.common.EntityTool;
 import com.smallaswater.littlemonster.entity.IEntity;
@@ -302,7 +303,20 @@ public class MonsterConfig {
     }
 
     public IEntity spawn(Position spawn, int time) {
-        Skin skin = LittleMonsterMainClass.loadSkins.getOrDefault(getSkin(), new Skin());
+        Skin skin = LittleMonsterMainClass.loadSkins.get(getSkin());
+
+        if (skin == null) {
+            LittleMonsterMainClass.getInstance().getLogger().error("加载怪物" + name + " 皮肤 " + getSkin() + " 失败！皮肤文件不存在！");
+            skin = LittleMonsterMainClass.loadSkins.values().iterator().next();
+            LittleMonsterMainClass.getInstance().getLogger().error("加载怪物" + name + " 皮肤 " + getSkin() + " 失败！已切换到默认皮肤！");
+        }
+
+        try {
+            SerializedImage serializedImage = SerializedImage.fromLegacy(skin.getSkinData().data);
+        } catch (Exception e) {
+            LittleMonsterMainClass.getInstance().getLogger().error("加载怪物" + name + " 皮肤数据错误！", e);
+            return null;
+        }
 
         CompoundTag nbt = Entity.getDefaultNBT(spawn).
                 putCompound("Skin", new CompoundTag()

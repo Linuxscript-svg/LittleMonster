@@ -189,7 +189,7 @@ public class Utils {
         ArrayList<LittleNpc> littleNpcs = new ArrayList<>();
         for(Level level: Server.getInstance().getLevels().values()) {
             for (Entity entitys : level.getEntities()) {
-                if (entitys instanceof LittleNpc && ((LittleNpc) entitys).name.equalsIgnoreCase(positionConfig.getLittleNpc().getName())) {
+                if (entitys instanceof LittleNpc && positionConfig.getLittleNpc().getName().equalsIgnoreCase(((LittleNpc) entitys).name)) {
                     if(((LittleNpc) entitys).spawnPos != null && ((LittleNpc) entitys).spawnPos.equalsIgnoreCase(positionConfig.getName())){
                         littleNpcs.add((LittleNpc) entitys);
                     }

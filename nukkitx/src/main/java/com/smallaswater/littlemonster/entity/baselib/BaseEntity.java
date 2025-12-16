@@ -27,6 +27,7 @@ import cn.nukkit.potion.Effect;
 import com.smallaswater.littlemonster.common.EntityTool;
 import com.smallaswater.littlemonster.config.MonsterConfig;
 import com.smallaswater.littlemonster.entity.LittleNpc;
+import com.smallaswater.littlemonster.events.IgnoreDamageDelayEvent;
 import com.smallaswater.littlemonster.handle.DamageHandle;
 import com.smallaswater.littlemonster.skill.BaseSkillManager;
 import com.smallaswater.littlemonster.utils.Utils;
@@ -301,7 +302,7 @@ public abstract class BaseEntity extends EntityHuman {
 
     @Override
     public boolean attack(EntityDamageEvent source) {
-        if (this.damageDelay >= config.getInvincibleTime()) {
+        if (this.damageDelay >= config.getInvincibleTime() || source instanceof IgnoreDamageDelayEvent) {
             if (source.getAttackCooldown() >= this.config.getInvincibleTime()) {
                 source.setAttackCooldown(this.config.getInvincibleTime());
             }

@@ -1,5 +1,5 @@
 ## LittleMonster
-
+1
 **版本: v1.8.0**
 
 感谢您使用LittleMonster副本插件 使用本插件时请阅读如下规则
